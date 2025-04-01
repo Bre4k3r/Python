@@ -1,0 +1,38 @@
+#Capybara
+card = pygame.image.load('capybara.jpg').convert()
+
+#Def
+player_pos = pygame.Vector2(0, screen.get_height() - card.get_height())
+jumping = False
+
+Y_GRAVITY = 1
+JUMP_HEIGHT = 20
+Y_VELOCITY = JUMP_HEIGHT
+
+
+#Char
+    screen.blit(card, player_pos)
+
+
+#Jump
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_SPACE]:
+        jumping = True
+    if jumping:
+        if JUMP_HEIGHT >= -10:
+            player_pos.y -= Y_VELOCITY
+            Y_VELOCITY -= Y_GRAVITY
+            if Y_VELOCITY < -JUMP_HEIGHT:
+                jumping = False
+                Y_VELOCITY = JUMP_HEIGHT
+
+    # Verifica se a capivara passou do "chão" e ajusta a posição Y
+    if player_pos.y > screen.get_height() - card.get_height():
+        player_pos.y = screen.get_height() - card.get_height()
+
+    #Keys
+    if keys[pygame.K_a]:
+        player_pos.x -= 300 * dt
+        
+    if keys[pygame.K_d]:
+        player_pos.x += 300 * dt
