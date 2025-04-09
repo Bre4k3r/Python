@@ -74,16 +74,16 @@ class jogador():
         if self.exp == 500*((1.8)*(self.nivel-1)):
             self.nivel+=1
             print(f'Parabens, você upou de nível!\n[NIVEL {self.nivel}]\n[HP] + 5 \n[ATAQUE] + 1\n [DEFESA] + 1\n')
-            jogador.adicionar_hp(5)
-            jogador.adicionar_ataque(1)
-            jogador.adicionar_defesa(1)
+            self.adicionar_hp(5)
+            self.adicionar_ataque(1)
+            self.adicionar_defesa(1)
             time.sleep(0.5)
 
     def adicionar_exp(self,experiencia):
         self.exp += experiencia
         print(f'> {experiencia} de EXP foi obtida.\n')
         time.sleep(0.5)
-        return self.adicionar_exp
+        return experiencia
 
     def combateR(self,combate,dificuldade):
         print(dificuldade)
