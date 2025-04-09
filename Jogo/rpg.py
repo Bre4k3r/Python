@@ -81,7 +81,7 @@ class jogador():
 
     def adicionar_exp(self,experiencia):
         self.exp += experiencia
-        print(f'{experiencia} foi obtida.\n')
+        print(f'> {experiencia} de EXP foi obtida.\n')
         time.sleep(0.5)
         return self.adicionar_exp
 
@@ -99,13 +99,29 @@ class jogador():
             print('1: Ataque\n2: Correr')
             escolha = int(input('Escolha a sua ação: ')) 
             if escolha == 1:
-                hp_inimigo = Player.ataque_personagem(hp_inimigo, defesa_inimigo)
-                print('O hp do inimigo é: ',hp_inimigo,)
+                rolagem = random.randint(1,20)
+                if rolagem <= 5:
+                    print('Você errou!')
+                    print('O hp do inimigo é: ',hp_inimigo,)
+                else:
+                    hp_inimigo = Player.ataque_personagem(hp_inimigo, defesa_inimigo)
+                    print('O hp do inimigo é: ',hp_inimigo,)
                 print('\n-----x-----\n')
 
+            elif escolha == 2:
+                roll = random.randint(1,4)
+                if roll <= 3:
+                    combate = False
+                else:
+                    combate = True
 
-            Player.hp = Player.ataque_inimigo(Player.hp, ataque_inimigo)
-            print(f"Seu HP: {Player.hp}\nHP do Inimigo: {hp_inimigo}\n")
+            rolagemI = random.randint(1,20)
+            if rolagemI <= 5:
+                print('O inimigo errou!')
+                print(f'O seu hp é: {self.hp}')
+            else:
+                Player.hp = Player.ataque_inimigo(Player.hp, ataque_inimigo)
+                print(f"Seu HP: {Player.hp}\nHP do Inimigo: {hp_inimigo}\n")
             print('-----x-----\n')
 
     
@@ -122,27 +138,27 @@ class jogador():
                 
                 if dificuldade >= 1:
                     ouro = 25*dificuldade
-                    exp = 25*dificuldade
+                    exp = 100*dificuldade
 
                 elif dificuldade >= 3:
                     ouro = 50*dificuldade
-                    exp = 50*dificuldade
+                    exp = 200*dificuldade
                 
                 elif dificuldade >= 5:
                     ouro = 75*dificuldade
-                    exp = 100*dificuldade
+                    exp = 300*dificuldade
                 
                 elif dificuldade >= 10:
                     ouro = 100*dificuldade
-                    exp = 200*dificuldade
+                    exp = 500*dificuldade
                 
                 elif dificuldade >= 20:
                     ouro = 125*dificuldade
-                    exp = 250*dificuldade
+                    exp = 500*dificuldade
                 
                 elif dificuldade > 30:
                     ouro = 150*dificuldade
-                    exp = 300*dificuldade
+                    exp = 500*dificuldade
                 
                 Player.adicionar_ouro(ouro)
                 Player.adicionar_exp(exp)
@@ -151,15 +167,9 @@ class jogador():
                 time.sleep(0.5)
                 combate = False
 
-            elif escolha == 2:
-                roll = random.randint(1,2)
-                if roll == 1:
-                    combate = False
-                else:
-                    combate = True
 
     def mostrar_status(self):
-        print(f'[NIVEL] - {self.nivel}\n[HP] - {self.hp} | {self.max_hp}\n[ATAQUE] - {self.ataque}\n[DEFESA] - {self.defesa}\n[OURO] - {self.defesa}\n-----x-----\n')
+        print(f'[NIVEL] - {self.nivel}\n\n[EXP] - {self.exp}/{500*((1.8)*(self.nivel+1))}\n\n[HP] - {self.hp} | {self.max_hp}\n[ATAQUE] - {self.ataque}\n[DEFESA] - {self.defesa}\n[OURO] - {self.ouro}\n-----x-----\n')
 
 Player = jogador()
 nivel_monstro = Player.nivel*1.2
@@ -168,7 +178,7 @@ nivel_monstro = math.floor(nivel_monstro)
 class mundo():
 
     def cidade():
-        print('Você deseja ir para aonde?\n1: Loja\n2: Descansar\n3: Explorar')
+        print('> Você deseja ir para aonde?\n1: Loja\n2: Descansar\n3: Explorar')
         time.sleep(0.5)
         
         choice = int(input('Digite a sua escolha: '))
@@ -186,23 +196,44 @@ class mundo():
             ...
 
     def loja():
-        print('O que deseja comprar?\n1: Espada(100G) \n2: Armadura(150G)\n 3: Voltar')
+
+        nome = ['Ana Clara', 'João Pedro', 'Helena', 'Miguel', 'Laura', 'Lucas', 'Isabela', 'Rafael', 'Mariana', 'Gustavo',
+        'Beatriz', 'Arthur', 'Valentina', 'Enzo', 'Sofia', 'Davi', 'Lívia', 'Theo', 'Júlia', 'Pedro Henrique',
+        'Alice', 'Matheus', 'Yasmin', 'Caio', 'Camila', 'Bruno', 'Lara', 'Diego', 'Bianca', 'Daniel',
+        'Fernanda', 'Heitor', 'Elisa', 'Igor', 'Heloísa', 'Samuel', 'Letícia', 'Vinícius', 'Vitória', 'Nicolas',
+        'Manuela', 'Leonardo', 'Nicole', 'André', 'Milena', 'Marcelo', 'Lorena', 'Rodrigo', 'Clara', 'Felipe',
+        'Maitê', 'Eduardo', 'Luna', 'Henrique', 'Melissa', 'Antônio', 'Giovanna', 'Christian', 'Alana', 'Raul',
+        'Júlia Vitória', 'Vitor', 'Camilly', 'Luiz Otávio', 'Zoe', 'Francisco', 'Bella', 'Murilo', 'Cecília', 'Jorge',
+        'Rebeca', 'Luan', 'Ágatha', 'Leandro', 'Mirella', 'Tiago', 'Emanuelle', 'Allan', 'Rafaela', 'Erik',
+        'Talita', 'Jonatas', 'Isadora', 'Bryan', 'Noemi', 'Gabriel', 'Luara', 'Cael', 'Ayla', 'Otávio',
+        'Jade', 'Lorenzo', 'Estela', 'Benjamin', 'Alice Maria', 'Gael', 'Clara Sofia', 'Enrico', 'Liz', 'Noah']
+        
+        x = random.randint(0,99)
+
+        print(f'[{nome[x]}]: O que deseja comprar, aventureiro?\n1: Espada(100G) \n2: Armadura(150G)\n3: Voltar')
         compra = int(input('Digite a sua escolha: '))
         print('\n-----x-----\n')
         if compra == 1:
-            print('-----x-----\n')
-            Player.adicionar_ataque(2)
-            Player.remover_ouro(100)
+            if Player.ouro >= 100:
+                Player.adicionar_ataque(2)
+                Player.remover_ouro(100)
+                print(f'[{nome[x]}]: Obrigado pela compra, aventureiro!')
+            else:
+                print('Ouro insuficiente.\n')
             print('-----x-----\n')
             return
         elif compra == 2:
             print('-----x-----\n')
-            Player.adicionar_defesa(2)
-            Player.remover_ouro(150)
+            if Player.ouro >= 150:
+                Player.adicionar_defesa(2)
+                Player.remover_ouro(150)
+                print(f'[{nome[x]}]: Obrigado pela compra, aventureiro!')
+            else:
+                print('Ouro insuficiente.')
             print('-----x-----\n')
             return
         elif compra == 3:
-            print('\n')
+            print(f'[{nome[x]}]: Até mais, aventureiro!)\n')
             mundo.cidade()
             
 
@@ -211,7 +242,7 @@ def display():
 
     if roll == 0:
         time.sleep(0.5)
-        x = random.randint(0,3)
+        x = random.randint(0,100)
 
         if x == 0:
             print('> Você encontrou um [Dragão] se prepare para o combate.\n')
@@ -222,16 +253,7 @@ def display():
             print('-----x-----\n')
             combateR(combate,dificuldade)
 
-        elif x == 1:
-            print('> Você encontrou um [Goblin] se prepare para o combate.\n')
-            time.sleep(0.5)
-            dificuldade = nivel_monstro*1
-
-            combate=True
-            print('-----x-----\n')
-            combateR(combate,dificuldade)
-
-        elif x == 2:
+        elif x <= 10:
             print('> Você encontrou um [Gigante] se prepare para o combate.\n')
             time.sleep(0.5)
             dificuldade = nivel_monstro*3
@@ -240,7 +262,17 @@ def display():
             print('-----x-----\n')
             combateR(combate,dificuldade)
 
-        elif x == 3:
+        elif x <= 50:
+            print('> Você encontrou um [Goblin] se prepare para o combate.\n')
+            time.sleep(0.5)
+            dificuldade = nivel_monstro*1
+
+            combate=True
+            print('-----x-----\n')
+            combateR(combate,dificuldade)
+
+
+        elif x <= 99:
             print('> Você encontrou uma [Horda de Lobos] se prepare para o combate.\n')
             time.sleep(0.5)
             dificuldade = nivel_monstro*1
@@ -253,6 +285,7 @@ def display():
         time.sleep(0.5)
         x = random.randint(0,2)
         if x == 0:
+            print('> Uma pilha de ouro foi encontrada!')
             Player.adicionar_ouro(100)
             print('-----x-----\n')
 
@@ -289,7 +322,7 @@ def display():
 combateR = Player.combateR
 
 while running:
-    escolha = int(input('1: Explorar\n2: Janela de Status\n3: Sair\nEscolha: '))
+    escolha = int(input('1: Explorar\n2: Janela de Status\n3: Sair\n9: Info\nEscolha: '))
     print('\n')
     if escolha == 1:
         display()
@@ -297,7 +330,8 @@ while running:
         Player.mostrar_status()
     elif escolha == 3:
         break
-
+    elif escolha == 9:
+        print('Desenvolvedor: Leonardo Domingues de Oliveira\nE-mail: Leo2014coc@gmail.com')
     if Player.hp <= 0:
         break
     else:
